@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* optional body bg fallback if Tailwind not configured */
+html, body, #root {
+  height: 100%;
+  background: #f8fafc; /* light gray fallback */
+}

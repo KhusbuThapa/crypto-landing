@@ -1,0 +1,247 @@
+/* ================================
+   src/index.css - Full Updated
+   ================================ */
+
+:root {
+  --blue: #0f76d1;
+  --card-w: 420px;         /* main card width */
+  --card-radius: 28px;
+}
+
+/* base reset */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: var(--blue);
+  color: #222;
+}
+
+/* overall layout */
+.app-root { 
+  min-height: 100vh; 
+  display: flex; 
+  align-items: stretch; 
+}
+.page { 
+  display: flex; 
+  width: 100%; 
+  min-height: 100vh; 
+}
+
+/* left column (main hero) */
+/* NOTE: overflow changed to visible to avoid clipping mascot legs */
+.left-column {
+  width: 60%;
+  background: var(--blue);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 36px 46px;
+  position: relative;
+  overflow: visible; /* allow mascot to overflow without being clipped */
+}
+
+/* right column (card) */
+.right-column {
+  width: 40%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 36px;
+  background: transparent;
+}
+
+/* HERO */
+.hero { 
+  width: 100%; 
+  display: flex; 
+  flex-direction: column; 
+  height: 100%; 
+}
+
+/* logo always top-left */
+.hero-header .logo { 
+  width: 160px; 
+  object-fit: contain; 
+  margin-bottom: 22px; 
+}
+
+/* hero content: text + mascot */
+.hero-content { 
+  flex: 1; 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; /* mascot goes right */
+  position: relative; 
+  overflow: visible; /* ensure children can overflow if needed */
+}
+
+/* hero text left */
+.hero-text { 
+  width: 58%; 
+  z-index: 3; 
+}
+.lede { 
+  font-size: 14px; 
+  opacity: 0.95; 
+  margin-bottom: 8px; 
+}
+.matters {
+  font-size: clamp(80px, 10vw, 150px); /* even bigger headline */
+  line-height: 0.82;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.subtitle { 
+  font-size: clamp(18px, 2.2vw, 28px); 
+  opacity: 0.95; 
+  margin-top: 6px; 
+}
+
+/* =========================
+   Mascot area (centered + visible)
+   ========================= */
+
+/* mascot wrap near card */
+.hero-mascot-wrap {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* place mascot near the right side of left-column */
+  position: relative;
+  z-index: 4;
+  pointer-events: none;
+  margin-right: -40px;   /* overlap toward card */
+  overflow: visible;     /* IMPORTANT: allow the mascot to extend visually */
+}
+
+/* mascot -- visible, sized responsively, sits above card */
+/* mascot */
+.mascot {
+  position: relative;        /* needed for z-index to take effect */
+  z-index: 6;                /* keep above card background */
+  width: min(95%, 600px);    /* responsive size, caps at 600px */
+  max-width: 600px;
+  max-height: 90vh;          /* never taller than viewport */
+  object-fit: contain;
+  transform: translateY(35%); /* smaller nudge (was 35%) so legs stay visible */
+  transition: transform 220ms ease;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.12));
+}
+
+/* small helper classes so you can nudge the mascot without changing main rule */
+.mascot--down  { transform: translateY(16%); } /* moves DOWN */
+.mascot--up    { transform: translateY(-6%); } /* moves UP */
+
+/* make sure the card sits under the mascot (so mascot appears in front) */
+.card-inner {
+  position: relative;
+  width: var(--card-w);
+  padding: 22px 22px 30px 22px;
+  z-index: 2; /* lower than mascot's z-index */
+  margin-right: 6px;
+  background: transparent; 
+}
+
+/* hero footer - keep text in left corner */
+.hero-footer {
+  position: absolute;
+  left: 46px;              /* align with hero padding */
+  bottom: 40px;            /* pin it near bottom-left */
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.95;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ensure mascot legs don’t get cut off */
+.left-column {
+  overflow: visible; /* allows mascot to flow out if needed */
+}
+/* BUY CARD wrapper */
+.buy-card { 
+  width: 100%; 
+  max-width: 520px; 
+  position: relative; 
+  display: flex; 
+  align-items: flex-start; 
+  justify-content: center; 
+}
+
+/* background SVG (subtract) */
+.card-bg {
+  position: absolute;
+  right: 10px;
+  top: 18px;
+  width: calc(var(--card-w) + 40px);
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* card inner content already defined above */
+
+/* card content */
+.card-header { text-align: center; margin-top: 6px; }
+.card-title { text-align: center; color: #2b6fb3; font-weight: 700; margin-top: 6px; font-size: 16px; }
+
+.progress-row { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 12px; }
+.progress-pill { background: #1f6fb5; color: white; padding: 8px 18px; border-radius: 20px; font-weight: 600; font-size: 13px; }
+.progress-track { height: 10px; width: 100%; background: #e6e6e6; border-radius: 10px; margin-top: -8px; }
+
+.prices-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; padding: 18px 16px; align-items: center; justify-items: center; }
+.price-item { text-align: center; }
+.banana-icon { width: 48px; height: 48px; display: block; margin: 0 auto 6px; }
+.price-label { font-size: 13px; color: #2b587a; }
+
+ /* pay/receive row */
+.exchange-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; gap: 12px; margin-top: 14px; }
+.small-label { font-size: 13px; color: #777; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 12px; background: #eaf4ff; color: #0f76d1; font-weight: 600; }
+
+.payment-methods { display: flex; gap: 10px; justify-content: center; margin-top: 8px; }
+.method { height: 28px; width: auto; }
+
+/* action buttons */
+.card-actions { display: flex; gap: 14px; align-items: center; justify-content: flex-start; margin-top: 18px; }
+.btn-primary {
+  background: linear-gradient(180deg, #0f76d1, #0b68b8);
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 28px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(15,118,209,0.18);
+}
+.btn-ghost {
+  background: #fff;
+  color: #0f76d1;
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* responsive adjustments */
+@media (max-width: 1100px) {
+  .left-column { width: 58%; padding: 26px; }
+  .right-column { width: 42%; padding: 16px; }
+  :root { --card-w: 380px; }
+  .matters { font-size: clamp(58px, 9vw, 110px); }
+}
+@media (max-width: 820px) {
+  .page { flex-direction: column; }
+  .left-column, .right-column { width: 100%; }
+  .hero-content { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .mascot { width: 46%; transform: none; }
+  .card-inner { width: 92%; margin: 0 auto; }
+}
+
